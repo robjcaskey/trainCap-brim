@@ -26,5 +26,6 @@
   },
   "homepage": "https://github.com/robjcaskey/trainCap-brim",
   "dependencies": {
+    "socket.io-client": "~1.2.1"
   }
 }
