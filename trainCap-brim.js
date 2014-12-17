@@ -8,7 +8,7 @@ socket.on('setSpeed', function(data) {
 })
 
 var spawn = require('child_process').spawn
-var python_process = spawn('./brimWorker.py')
+var python_process = spawn('/usr/bin/python',['./brimWorker.py'])
 function sendPy(cmd) {
   console.log("#########"+cmd)
   python_process.stdin.write(cmd+"\n")
