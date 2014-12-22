@@ -6,6 +6,38 @@ socket.on('setSpeed', function(data) {
 	global_speed = data.speed
 	sendPy("l1.speed = "+global_speed.toString())
 })
+socket.on('setF', function(data) {
+        console.log("HAA")
+        if(data.f[0] == "f") {
+	  console.log("Got function lamp from server "+data.f)
+	  sendPy("l1."+data.f.toString()+" = True")
+        }
+        else if(data.f == "reverse") {
+	  sendPy("l1.direction = 0")
+          setTimeout(function() {
+	    sendPy("l1.speed = "+global_speed.toString())
+          }, 100);
+        }
+	else {
+	  console.log("Got unknown function from server "+data.f)
+	}
+})
+socket.on('unsetF', function(data) {
+        console.log("unset HAA")
+        if(data.f[0] == "f") {
+	  console.log("Got function lamp from server "+data.f)
+	  sendPy("l1."+data.f.toString()+" = False")
+        }
+        else if(data.f == "reverse") {
+	  sendPy("l1.direction = 1")
+          setTimeout(function() {
+	    sendPy("l1.speed = "+global_speed.toString())
+          }, 100);
+        }
+	else {
+	  console.log("Got unknown function from server "+data.f)
+	}
+})
 
 var spawn = require('child_process').spawn
 var python_process = spawn('/usr/bin/python',['./brimWorker.py'])
@@ -31,8 +63,7 @@ sendPy("e = DCCRPiEncoder(pin_a=8,pin_b=9,pin_break=7)")
 sendPy("c = DCCController(e)")
 sendPy("l1 = DCCLocomotive('DCC', 3)")
 sendPy("c.register(l1)")
-sendPy("c.start()")
-sendPy("l1.reverse()")
+sendPy("l1.speed = 4")
 */
 setInterval(function() {
 //	sendPy("l1.speed = "+global_speed.toString())

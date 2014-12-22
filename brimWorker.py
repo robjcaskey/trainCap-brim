@@ -47,7 +47,7 @@ class FakeDCCControllerThread:
 			else:
 				sys.stderr.write("Unknown state %s!" % state)
 				self.dcc_controller.state = 'shutdown'
-			time.sleep(0.015)
+			time.sleep(.010)
 		except:
 			self.dcc_encoder.tracks_power_off()
 			m = "An exception ocurred! Please stop the controller!"
@@ -63,7 +63,6 @@ c._thread = FakeDCCControllerThread(c)
 c.state = 'startup'
 c._thread.tick()
 
-l1.reverse()                  # Change direction bit
 x = 0
 total_ticks = 0 
 current_speed = 0
